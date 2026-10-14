@@ -2,13 +2,22 @@
 
 [![CI](https://github.com/centxyz/DeployRunbook/actions/workflows/ci.yml/badge.svg)](https://github.com/centxyz/DeployRunbook/actions/workflows/ci.yml)
 
-DeployRunbook is a browser deployment runbook for Solidity contracts. It compiles source through [SolidityStackDiamond](https://github.com/centxyz/SolidityStackDiamond), encodes typed constructor arguments, connects to an injected EIP-1193 wallet, estimates gas, requests deployment, waits for the transaction receipt, and verifies runtime bytecode at the resulting address.
+DeployRunbook is a browser deployment runbook for Solidity contracts. It compiles source through [SolcQueue](https://github.com/centxyz/SolcQueue), encodes typed constructor arguments, connects to an injected EIP-1193 wallet, estimates gas, requests deployment, waits for the transaction receipt, and verifies runtime bytecode at the resulting address.
 
 Private keys never enter the application. The connected wallet performs approval and signing. Verified deployments are stored only in browser local storage.
 
 ## Run
 
-Start SolidityStackDiamond on port 3000, then:
+Start SolcQueue on port 3000 in a separate terminal:
+
+```bash
+git clone https://github.com/centxyz/SolcQueue.git
+cd SolcQueue
+npm install
+npm start
+```
+
+Then start the browser application:
 
 ```bash
 git clone https://github.com/centxyz/DeployRunbook.git
@@ -18,6 +27,8 @@ npm run dev
 ```
 
 Open the displayed URL in a browser with an injected wallet such as MetaMask. Choose the intended wallet network before deployment.
+
+The default compiler URL is `http://localhost:3000`. Set it in the interface if SolcQueue runs elsewhere. Compilation can be tested without connecting a wallet; signing and deployment require an injected wallet. The compiler API retains its legacy `SolidityStackDiamond` service identifier for compatibility.
 
 ## Workflow
 

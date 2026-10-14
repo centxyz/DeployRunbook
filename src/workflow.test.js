@@ -13,7 +13,7 @@ describe('deployment workflow', () => {
   test('encodes creation bytecode and dynamic constructor data', () => {
     const data = buildDeployData({ abi, bytecode: '0x60006000' }, ['hello']); assert.ok(data.startsWith('0x60006000')); assert.ok(data.length > 10);
   });
-  test('compiles through SolidityStackDiamond', async () => {
+  test('compiles through SolcQueue', async () => {
     const result = { contracts: [{ name: 'C', abi: [], bytecode: '0x60' }] };
     const client = new CompilerClient('http://localhost:3000', async (_url, init) => { assert.equal(JSON.parse(init.body).contractName, 'C'); return { ok: true, status: 200, json: async () => ({ success: true, result }) }; });
     assert.deepEqual(await client.compile({ contractName: 'C' }), result);
